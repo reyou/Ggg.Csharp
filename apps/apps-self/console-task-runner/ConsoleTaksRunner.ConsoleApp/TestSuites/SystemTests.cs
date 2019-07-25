@@ -17,7 +17,7 @@ namespace ConsoleTaksRunner.ConsoleApp.TestSuites
                 startInfo.CreateNoWindow = false;
                 startInfo.UseShellExecute = true;
                 startInfo.FileName = "/bin/bash";
-                startInfo.Arguments = $"& '{filePathExecute}'";
+                startInfo.Arguments = $" '{filePathExecute}'";
                 Process process = Process.Start(startInfo);
                 if (process != null)
                 {
