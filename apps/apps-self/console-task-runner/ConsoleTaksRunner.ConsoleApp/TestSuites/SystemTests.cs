@@ -27,7 +27,8 @@ namespace ConsoleTaksRunner.ConsoleApp.TestSuites
                     string message = $"{process.Id} started.";
                     TestUtilities.ConsoleWriteJson(new
                     {
-                        message
+                        message,
+                        command = $"{startInfo.FileName} {startInfo.Arguments}",
                     });
                 }
             }
@@ -39,23 +40,27 @@ namespace ConsoleTaksRunner.ConsoleApp.TestSuites
                 });
             }
         }
-        public void NetTCPConnectionPowershell(ApplicationEnvironment applicationEnvironment)
+        public void NetTcpConnectionPowershell(ApplicationEnvironment applicationEnvironment)
         {
             if (TestUtilities.IsWindows())
             {
-                string filePathExecute = "./Assets/SystemTests/NetTCPConnectionPowershell.ps1";
+                string filePathExecute = "./Assets/SystemTests/NetTcpConnectionPowershell.ps1";
+                FileInfo fileInfo = new FileInfo(filePathExecute);
                 ProcessStartInfo startInfo = new ProcessStartInfo();
                 startInfo.CreateNoWindow = false;
                 startInfo.UseShellExecute = true;
+                startInfo.RedirectStandardError = false;
+                startInfo.RedirectStandardOutput = false;
                 startInfo.FileName = "powershell.exe";
-                startInfo.Arguments = $"& '{filePathExecute}'";
+                startInfo.Arguments = $"& '{fileInfo.FullName}'";
                 Process process = Process.Start(startInfo);
                 if (process != null)
                 {
                     string message = $"{process.Id} started.";
                     TestUtilities.ConsoleWriteJson(new
                     {
-                        message
+                        message,
+                        command = $"{startInfo.FileName} {startInfo.Arguments}",
                     });
                 }
             }

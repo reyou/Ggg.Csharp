@@ -16,6 +16,9 @@
     <None Update="Assets\SystemTests\ExecutePowershell.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Assets\SystemTests\NetTcpConnectionPowershell.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

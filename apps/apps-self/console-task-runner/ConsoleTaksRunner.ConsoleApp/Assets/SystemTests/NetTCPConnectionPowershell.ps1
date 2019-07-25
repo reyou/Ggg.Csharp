@@ -1,2 +1,2 @@
-﻿Get-NetTCPConnection 
+﻿Get-NetTCPConnection
 pause
