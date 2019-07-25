@@ -9,17 +9,18 @@ namespace ConsoleTaksRunner.ConsoleApp.TestSuites
 {
     public class SystemTests : ITestSuite
     {
-        public void ExecuteBash(ApplicationEnvironment applicationEnvironment)
+
+        public void NetStatBash(ApplicationEnvironment applicationEnvironment)
         {
             if (TestUtilities.IsLinux())
             {
-                string filePathExecute = "./Assets/SystemTests/ExecuteBash.bash";
+                string filePathExecute = "./Assets/SystemTests/NetStatBash.sh";
                 FileInfo fileInfo = new FileInfo(filePathExecute);
                 ProcessStartInfo startInfo = new ProcessStartInfo();
-                startInfo.CreateNoWindow = false;
-                startInfo.UseShellExecute = true;
+                startInfo.CreateNoWindow = true;
+                startInfo.UseShellExecute = false;
                 startInfo.FileName = "/bin/bash";
-                startInfo.Arguments = $" {fileInfo.FullName}";
+                startInfo.Arguments = $"\"{fileInfo.FullName}\"";
                 Process process = Process.Start(startInfo);
                 if (process != null)
                 {
@@ -38,11 +39,11 @@ namespace ConsoleTaksRunner.ConsoleApp.TestSuites
                 });
             }
         }
-        public void ExecutePowershell(ApplicationEnvironment applicationEnvironment)
+        public void NetTCPConnectionPowershell(ApplicationEnvironment applicationEnvironment)
         {
             if (TestUtilities.IsWindows())
             {
-                string filePathExecute = "./Assets/SystemTests/ExecutePowershell.ps1";
+                string filePathExecute = "./Assets/SystemTests/NetTCPConnectionPowershell.ps1";
                 ProcessStartInfo startInfo = new ProcessStartInfo();
                 startInfo.CreateNoWindow = false;
                 startInfo.UseShellExecute = true;
