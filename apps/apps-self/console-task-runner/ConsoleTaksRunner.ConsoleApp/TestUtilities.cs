@@ -69,6 +69,9 @@ namespace ConsoleTaksRunner.ConsoleApp
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = false;
             startInfo.UseShellExecute = false;
+            startInfo.RedirectStandardInput = false;
+            startInfo.RedirectStandardOutput = false;
+            startInfo.RedirectStandardError = false;
             startInfo.FileName = "/bin/bash";
             startInfo.Arguments = $"\"{filePath}\"";
             Process process = Process.Start(startInfo);
