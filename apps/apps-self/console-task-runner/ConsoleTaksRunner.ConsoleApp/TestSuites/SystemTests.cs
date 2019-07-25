@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -12,12 +13,13 @@ namespace ConsoleTaksRunner.ConsoleApp.TestSuites
         {
             if (TestUtilities.IsLinux())
             {
-                string filePathExecute = "./Assets/SystemTests/ExecuteBash.ps1";
+                string filePathExecute = "./Assets/SystemTests/ExecuteBash.bash";
+                FileInfo fileInfo = new FileInfo(filePathExecute);
                 ProcessStartInfo startInfo = new ProcessStartInfo();
                 startInfo.CreateNoWindow = false;
                 startInfo.UseShellExecute = true;
                 startInfo.FileName = "/bin/bash";
-                startInfo.Arguments = $" '{filePathExecute}'";
+                startInfo.Arguments = $" {fileInfo.FullName}";
                 Process process = Process.Start(startInfo);
                 if (process != null)
                 {
