@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Newtonsoft.Json;
@@ -39,6 +41,46 @@ namespace ConsoleTaksRunner.ConsoleApp
         public static bool IsLinux()
         {
             return RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
+        }
+
+        public static void RunPowershell(string filePath)
+        {
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.CreateNoWindow = false;
+            startInfo.UseShellExecute = true;
+            startInfo.RedirectStandardError = false;
+            startInfo.RedirectStandardOutput = false;
+            startInfo.FileName = "powershell.exe";
+            startInfo.Arguments = $"& '{filePath}'";
+            Process process = Process.Start(startInfo);
+            if (process != null)
+            {
+                string message = $"{process.Id} started.";
+                TestUtilities.ConsoleWriteJson(new
+                {
+                    message,
+                    command = $"{startInfo.FileName} {startInfo.Arguments}",
+                });
+            }
+        }
+
+        public static void RunBash(string filePath)
+        {
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.CreateNoWindow = false;
+            startInfo.UseShellExecute = false;
+            startInfo.FileName = "/bin/bash";
+            startInfo.Arguments = $"\"{filePath}\"";
+            Process process = Process.Start(startInfo);
+            if (process != null)
+            {
+                string message = $"{process.Id} started.";
+                TestUtilities.ConsoleWriteJson(new
+                {
+                    message,
+                    command = $"{startInfo.FileName} {startInfo.Arguments}",
+                });
+            }
         }
     }
 }

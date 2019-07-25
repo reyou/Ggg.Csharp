@@ -16,21 +16,7 @@ namespace ConsoleTaksRunner.ConsoleApp.TestSuites
             {
                 string filePathExecute = "./Assets/SystemTests/NetStatBash.sh";
                 FileInfo fileInfo = new FileInfo(filePathExecute);
-                ProcessStartInfo startInfo = new ProcessStartInfo();
-                startInfo.CreateNoWindow = true;
-                startInfo.UseShellExecute = false;
-                startInfo.FileName = "/bin/bash";
-                startInfo.Arguments = $"\"{fileInfo.FullName}\"";
-                Process process = Process.Start(startInfo);
-                if (process != null)
-                {
-                    string message = $"{process.Id} started.";
-                    TestUtilities.ConsoleWriteJson(new
-                    {
-                        message,
-                        command = $"{startInfo.FileName} {startInfo.Arguments}",
-                    });
-                }
+                TestUtilities.RunBash(fileInfo.FullName);
             }
             else
             {
@@ -46,23 +32,25 @@ namespace ConsoleTaksRunner.ConsoleApp.TestSuites
             {
                 string filePathExecute = "./Assets/SystemTests/NetTcpConnectionPowershell.ps1";
                 FileInfo fileInfo = new FileInfo(filePathExecute);
-                ProcessStartInfo startInfo = new ProcessStartInfo();
-                startInfo.CreateNoWindow = false;
-                startInfo.UseShellExecute = true;
-                startInfo.RedirectStandardError = false;
-                startInfo.RedirectStandardOutput = false;
-                startInfo.FileName = "powershell.exe";
-                startInfo.Arguments = $"& '{fileInfo.FullName}'";
-                Process process = Process.Start(startInfo);
-                if (process != null)
+                TestUtilities.RunPowershell(fileInfo.FullName);
+            }
+            else
+            {
+                TestUtilities.ConsoleWriteJson(new
                 {
-                    string message = $"{process.Id} started.";
-                    TestUtilities.ConsoleWriteJson(new
-                    {
-                        message,
-                        command = $"{startInfo.FileName} {startInfo.Arguments}",
-                    });
-                }
+                    Message = "This method only works in Windows"
+                });
+            }
+
+        }
+
+        public void ServicesPowershell(ApplicationEnvironment applicationEnvironment)
+        {
+            if (TestUtilities.IsWindows())
+            {
+                string filePathExecute = "./Assets/SystemTests/ServicesPowershell.ps1";
+                FileInfo fileInfo = new FileInfo(filePathExecute);
+                TestUtilities.RunPowershell(fileInfo.FullName);
             }
             else
             {
