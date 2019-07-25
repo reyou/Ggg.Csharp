@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using System.Threading;
 using Newtonsoft.Json;
 
@@ -28,6 +29,16 @@ namespace ConsoleTaksRunner.ConsoleApp
             Console.WriteLine();
             Console.WriteLine("=========== Method Ends =================");
             Console.WriteLine();
+        }
+
+        public static bool IsWindows()
+        {
+            return RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+        }
+
+        public static bool IsLinux()
+        {
+            return RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
         }
     }
 }
