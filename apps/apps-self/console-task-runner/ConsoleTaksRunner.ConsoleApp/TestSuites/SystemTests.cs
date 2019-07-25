@@ -1,11 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ConsoleTaksRunner.ConsoleApp.TestSuites
 {
     public class SystemTests : ITestSuite
     {
+        public void GetRuntimeInformation(ApplicationEnvironment applicationEnvironment)
+        {
+            TestUtilities.ConsoleWriteJson(new
+            {
+                RuntimeInformation.OSDescription,
+                RuntimeInformation.OSArchitecture,
+                RuntimeInformation.FrameworkDescription,
+                RuntimeInformation.ProcessArchitecture,
+                IsWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows),
+                IsLinux = RuntimeInformation.IsOSPlatform(OSPlatform.Linux),
+                IsOSX = RuntimeInformation.IsOSPlatform(OSPlatform.OSX),
+            });
+        }
+
         public void GetEnvironmentProperties(ApplicationEnvironment applicationEnvironment)
         {
             TestUtilities.ConsoleWriteJson(new
@@ -29,9 +44,11 @@ namespace ConsoleTaksRunner.ConsoleApp.TestSuites
                 Environment.Version,
                 Environment.UserInteractive,
                 Environment.WorkingSet,
-                LogicalDrives = Environment.GetLogicalDrives(),
                 Environment.SpecialFolder.Desktop,
                 Environment.SpecialFolder.UserProfile,
+                LogicalDrives = Environment.GetLogicalDrives(),
+                EnvironmentVariables = Environment.GetEnvironmentVariables()
+
             });
         }
     }
