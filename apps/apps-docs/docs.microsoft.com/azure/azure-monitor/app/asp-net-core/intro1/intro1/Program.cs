@@ -19,9 +19,9 @@ namespace intro1
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
-            string instrumentationKey = File.ReadAllText("C:\\ao\\appKeys\\instrumentationKey1.txt");
+            // https://github.com/MicrosoftDocs/azure-docs/issues/27395
             return WebHost.CreateDefaultBuilder(args)
-                .UseApplicationInsights(instrumentationKey)
+                // .UseApplicationInsights()
                 .UseStartup<Startup>();
         }
     }
