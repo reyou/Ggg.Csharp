@@ -35,13 +35,16 @@ namespace intro1
                 EnableAdaptiveSampling = true,
                 EnableQuickPulseMetricStream = true,
             };
-            services.AddApplicationInsightsTelemetry(applicationInsightsServiceOptions);
+
             // https://docs.microsoft.com/en-us/azure/azure-monitor/app/asp-net-core#adding-telemetryinitializers
             services.AddSingleton<ITelemetryInitializer, MyCustomTelemetryInitializer>();
+
+            // Does not hit breakpoint for some reason
             services.AddApplicationInsightsTelemetryProcessor<MyFirstCustomTelemetryProcessor>();
             // If you have more processors:
             services.AddApplicationInsightsTelemetryProcessor<MySecondCustomTelemetryProcessor>();
 
+            services.AddApplicationInsightsTelemetry(applicationInsightsServiceOptions);
 
             services.Configure<CookiePolicyOptions>(options =>
             {
