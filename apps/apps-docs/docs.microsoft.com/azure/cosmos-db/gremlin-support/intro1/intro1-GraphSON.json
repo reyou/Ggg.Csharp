@@ -1,0 +1,34 @@
+{
+  "id": "a7111ba7-0ea1-43c9-b6b2-efc5e3aea4c0",
+  "label": "person",
+  "type": "vertex",
+  "outE": {
+    "knows": [
+      {
+        "id": "3ee53a60-c561-4c5e-9a9f-9c7924bc9aef",
+        "inV": "04779300-1c8e-489d-9493-50fd1325a658"
+      },
+      {
+        "id": "21984248-ee9e-43a8-a7f6-30642bc14609",
+        "inV": "a8e3e741-2ef7-4c01-b7c8-199f8e43e3bc"
+      }
+    ]
+  },
+  "properties": {
+    "firstName": [
+      {
+        "value": "Thomas"
+      }
+    ],
+    "lastName": [
+      {
+        "value": "Andersen"
+      }
+    ],
+    "age": [
+      {
+        "value": 45
+      }
+    ]
+  }
+}
