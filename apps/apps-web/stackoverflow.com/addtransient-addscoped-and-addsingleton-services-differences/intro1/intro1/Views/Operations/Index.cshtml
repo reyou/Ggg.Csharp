@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2 class="panel-title">Operations</h2>
+        </div>
+        <div class="panel-body">
+            <h3>Page Model Operations</h3>
+            <dl>
+                <dt>Transient</dt>
+                <dd>@ViewBag.TransientOperation.OperationId</dd>
+                <dt>Scoped</dt>
+                <dd>@ViewBag.ScopedOperation.OperationId</dd>
+                <dt>Singleton</dt>
+                <dd>@ViewBag.SingletonOperation.OperationId</dd>
+                <dt>Instance</dt>
+                <dd>@ViewBag.SingletonInstanceOperation.OperationId</dd>
+            </dl>
+            <h3>OperationService Operations</h3>
+            <dl>
+                <dt>Transient</dt>
+                <dd>@ViewBag.OperationService.TransientOperation.OperationId</dd>
+                <dt>Scoped</dt>
+                <dd>@ViewBag.OperationService.ScopedOperation.OperationId</dd>
+                <dt>Singleton</dt>
+                <dd>@ViewBag.OperationService.SingletonOperation.OperationId</dd>
+                <dt>Instance</dt>
+                <dd>@ViewBag.OperationService.SingletonInstanceOperation.OperationId</dd>
+            </dl>
+        </div>
+    </div>
+</div>
