@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ConsoleTaksRunner.ConsoleApp
+namespace ConsoleTaskRunner.ConsoleApp
 {
     internal class TestSuiteMethod
     {

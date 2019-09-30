@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
+﻿using System.IO;
 
-namespace ConsoleTaksRunner.ConsoleApp.TestSuites
+namespace ConsoleTaskRunner.ConsoleApp.TestSuites
 {
     public class NginxTests : ITestSuite
     {

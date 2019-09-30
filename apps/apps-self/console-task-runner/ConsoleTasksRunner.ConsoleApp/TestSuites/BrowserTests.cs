@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace ConsoleTaksRunner.ConsoleApp.TestSuites
+namespace ConsoleTaskRunner.ConsoleApp.TestSuites
 {
     public class BrowserTests : ITestSuite
     {

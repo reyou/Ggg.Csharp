@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace ConsoleTaksRunner.ConsoleApp.TestSuites
+namespace ConsoleTaskRunner.ConsoleApp.TestSuites
 {
     class FileTests : ITestSuite
     {

@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
-namespace ConsoleTaksRunner.ConsoleApp.TestSuites
+namespace ConsoleTaskRunner.ConsoleApp.TestSuites
 {
     class GitTests : ITestSuite
     {

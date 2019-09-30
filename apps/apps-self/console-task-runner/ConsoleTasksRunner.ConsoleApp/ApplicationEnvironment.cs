@@ -1,4 +1,4 @@
-﻿namespace ConsoleTaksRunner.ConsoleApp
+﻿namespace ConsoleTaskRunner.ConsoleApp
 {
     public enum ApplicationEnvironment
     {
