@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Exceptions;
@@ -15,11 +16,11 @@ namespace GremlinNetSample
     {
         // Azure Cosmos DB Configuration variables
         // Replace the values in these variables to your own.
-        private static string hostname = "your-endpoint.gremlin.cosmosdb.azure.com";
+        private static string hostname = File.ReadAllText(@"D:\apikeys\cosmos-db-gremlin\hostname.txt");
         private static int port = 443;
-        private static string authKey = "your-authentication-key";
-        private static string database = "your-database";
-        private static string collection = "your-collection-or-graph";
+        private static string authKey = File.ReadAllText(@"D:\apikeys\cosmos-db-gremlin\authKey.txt");
+        private static string database = File.ReadAllText(@"D:\apikeys\cosmos-db-gremlin\database.txt");
+        private static string collection = File.ReadAllText(@"D:\apikeys\cosmos-db-gremlin\collection.txt");
 
         // Gremlin queries that will be executed.
         private static Dictionary<string, string> gremlinQueries = new Dictionary<string, string>
@@ -48,22 +49,22 @@ namespace GremlinNetSample
         // Starts a console application that executes every Gremlin query in the gremlinQueries dictionary. 
         static void Main(string[] args)
         {
-            var gremlinServer = new GremlinServer(hostname, port, enableSsl: true, 
+            GremlinServer gremlinServer = new GremlinServer(hostname, port, enableSsl: true, 
                                                     username: "/dbs/" + database + "/colls/" + collection, 
                                                     password: authKey);
 
-            using (var gremlinClient = new GremlinClient(gremlinServer, new GraphSON2Reader(), new GraphSON2Writer(), GremlinClient.GraphSON2MimeType))
+            using (GremlinClient gremlinClient = new GremlinClient(gremlinServer, new GraphSON2Reader(), new GraphSON2Writer(), GremlinClient.GraphSON2MimeType))
             {
-                foreach (var query in gremlinQueries)
+                foreach (KeyValuePair<string, string> query in gremlinQueries)
                 {
-                    Console.WriteLine(String.Format("Running this query: {0}: {1}", query.Key, query.Value));
+                    Console.WriteLine($"Running this query: {query.Key}: {query.Value}");
 
                     // Create async task to execute the Gremlin query.
-                    var resultSet = SubmitRequest(gremlinClient, query).Result;
+                    ResultSet<dynamic> resultSet = SubmitRequest(gremlinClient, query).Result;
                     if (resultSet.Count > 0)
                     {
                         Console.WriteLine("\tResult:");
-                        foreach (var result in resultSet)
+                        foreach (dynamic result in resultSet)
                         {
                             // The vertex results are formed as Dictionaries with a nested dictionary for their properties
                             string output = JsonConvert.SerializeObject(result);
