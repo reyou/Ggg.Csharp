@@ -19,10 +19,10 @@ namespace intro1Tests
             //  Arrange
             Mock<IConfiguration> configurationStub = new Mock<IConfiguration>();
             IServiceCollection services = new ServiceCollection();
-            Startup target = new Startup(configurationStub.Object);
+            Startup startup = new Startup(configurationStub.Object);
 
             //  Act
-            target.ConfigureServices(services);
+            startup.ConfigureServices(services);
             //  Mimic internal asp.net core logic.
             services.AddTransient<TestController>();
             services.AddTransient<Test2Controller>();
