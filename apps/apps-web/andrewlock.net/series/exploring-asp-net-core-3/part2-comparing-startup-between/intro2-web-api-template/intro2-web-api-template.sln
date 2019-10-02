@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29326.143
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "intro2-web-api-template", "intro2-web-api-template.csproj", "{1D504D81-F898-4C3C-9A29-AD733224099C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1D504D81-F898-4C3C-9A29-AD733224099C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D504D81-F898-4C3C-9A29-AD733224099C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D504D81-F898-4C3C-9A29-AD733224099C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D504D81-F898-4C3C-9A29-AD733224099C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {58ADE53D-1D19-4C93-8244-8E93A60AE78F}
+	EndGlobalSection
+EndGlobal
