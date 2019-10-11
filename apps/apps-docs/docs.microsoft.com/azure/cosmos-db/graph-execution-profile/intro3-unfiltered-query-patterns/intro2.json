@@ -1,0 +1,72 @@
+[
+    {
+        "gremlin": "g.V().hasLabel('tweet').has('lang', 'en').out().executionProfile()",
+        "totalTime": 14,
+        "metrics": [
+            {
+                "name": "GetVertices",
+                "time": 14,
+                "annotations": {
+                    "percentTime": 58.33
+                },
+                "counts": {
+                    "resultCount": 11
+                },
+                "storeOps": [
+                    {
+                        "fanoutFactor": 1,
+                        "count": 11,
+                        "size": 4807,
+                        "time": 1.27
+                    }
+                ]
+            },
+            {
+                "name": "GetEdges",
+                "time": 5,
+                "annotations": {
+                    "percentTime": 20.83
+                },
+                "counts": {
+                    "resultCount": 18
+                },
+                "storeOps": [
+                    {
+                        "fanoutFactor": 1,
+                        "count": 18,
+                        "size": 7159,
+                        "time": 1.7
+                    }
+                ]
+            },
+            {
+                "name": "GetNeighborVertices",
+                "time": 5,
+                "annotations": {
+                    "percentTime": 20.83
+                },
+                "counts": {
+                    "resultCount": 18
+                },
+                "storeOps": [
+                    {
+                        "fanoutFactor": 1,
+                        "count": 4,
+                        "size": 1070,
+                        "time": 1.01
+                    }
+                ]
+            },
+            {
+                "name": "ProjectOperator",
+                "time": 0,
+                "annotations": {
+                    "percentTime": 0
+                },
+                "counts": {
+                    "resultCount": 18
+                }
+            }
+        ]
+    }
+]

@@ -1,0 +1,36 @@
+[
+    {
+        "gremlin": "g.V('tt0093640').executionProfile()",
+        "totalTime": 46,
+        "metrics": [
+            {
+                "name": "GetVertices",
+                "time": 46,
+                "annotations": {
+                    "percentTime": 100
+                },
+                "counts": {
+                    "resultCount": 1
+                },
+                "storeOps": [
+                    {
+                        "fanoutFactor": 5,
+                        "count": 1,
+                        "size": 589,
+                        "time": 75.61
+                    }
+                ]
+            },
+            {
+                "name": "ProjectOperator",
+                "time": 0,
+                "annotations": {
+                    "percentTime": 0
+                },
+                "counts": {
+                    "resultCount": 1
+                }
+            }
+        ]
+    }
+]

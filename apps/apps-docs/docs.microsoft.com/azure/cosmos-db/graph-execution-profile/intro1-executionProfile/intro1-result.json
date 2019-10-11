@@ -1,0 +1,76 @@
+[
+    {
+        "gremlin": "g.V().out().executionProfile()",
+        "activityId": "a5a47d2c-a163-4371-8f57-9adc5d8c8f81",
+        "totalTime": 92,
+        "totalResourceUsage": 9.24,
+        "metrics": [
+            {
+                "name": "GetVertices",
+                "time": 84,
+                "stepResourceUsage": 2.83,
+                "annotations": {
+                    "percentTime": 91.3,
+                    "percentResourceUsage": 30.63
+                },
+                "counts": {
+                    "resultCount": 10
+                },
+                "storeOps": [
+                    {
+                        "fanoutFactor": 1,
+                        "count": 10,
+                        "size": 5370,
+                        "time": 0.46,
+                        "storeResourceUsage": 2.83
+                    }
+                ]
+            },
+            {
+                "name": "GetEdges",
+                "time": 7,
+                "stepResourceUsage": 6.41,
+                "annotations": {
+                    "percentTime": 7.61,
+                    "percentResourceUsage": 69.37
+                },
+                "counts": {
+                    "resultCount": 9
+                },
+                "storeOps": [
+                    {
+                        "fanoutFactor": 1,
+                        "count": 9,
+                        "size": 3360,
+                        "time": 1.43,
+                        "storeResourceUsage": 6.41
+                    }
+                ]
+            },
+            {
+                "name": "GetNeighborVertices",
+                "time": 0,
+                "stepResourceUsage": 0,
+                "annotations": {
+                    "percentTime": 0,
+                    "percentResourceUsage": 0
+                },
+                "counts": {
+                    "resultCount": 9
+                }
+            },
+            {
+                "name": "ProjectOperator",
+                "time": 1,
+                "stepResourceUsage": 0,
+                "annotations": {
+                    "percentTime": 1.09,
+                    "percentResourceUsage": 0
+                },
+                "counts": {
+                    "resultCount": 9
+                }
+            }
+        ]
+    }
+]
