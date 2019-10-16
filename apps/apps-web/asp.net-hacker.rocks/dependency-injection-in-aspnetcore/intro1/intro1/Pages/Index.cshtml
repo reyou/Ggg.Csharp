@@ -1,0 +1,33 @@
+﻿@page
+@model IndexModel
+@inject ICountryService CountryService;
+
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+@if (CountryService.All().Any())
+{
+    <ul>
+        @foreach (var country in CountryService.All().OrderBy(x => x.Name))
+        {
+            <p>@country.Name (@country.Code)</p>
+
+        }
+    </ul>
+}
+<hr />
+@Html.DropDownList("Countries", CountryService.All()
+    .OrderBy(x => x.Name)
+    .Select(x => new SelectListItem
+    {
+        Text = x.Name,
+        Value = x.Code
+    }))
+<hr />
+<country-list selected-value="@CountryService.All().First()"></country-list>
+<hr />
