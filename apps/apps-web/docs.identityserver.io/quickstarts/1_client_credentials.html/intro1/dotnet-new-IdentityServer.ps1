@@ -1,0 +1,1 @@
+dotnet new is4empty -n IdentityServer
