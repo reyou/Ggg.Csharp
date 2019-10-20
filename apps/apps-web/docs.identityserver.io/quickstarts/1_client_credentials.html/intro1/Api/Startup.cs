@@ -24,6 +24,8 @@ namespace Api
                 .AddAuthorization()
                 .AddNewtonsoftJson();
 
+            services.AddSingleton<IUserService, UserService>();
+
             /*AddAuthentication adds the authentication services to DI
              and configures "Bearer" as the default scheme. */
             services.AddAuthentication("Bearer")
@@ -46,8 +48,8 @@ namespace Api
                 OnTokenValidated = context =>
                 {
                     IUserService userService = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
-                    int userId = int.Parse(context.Principal.Identity.Name);
-                    User user = userService.GetById(userId);
+                   
+                    User user = userService.GetById(context.Principal.Identity.Name);
                     if (user == null)
                     {
                         // return unauthorized if user no longer exists
