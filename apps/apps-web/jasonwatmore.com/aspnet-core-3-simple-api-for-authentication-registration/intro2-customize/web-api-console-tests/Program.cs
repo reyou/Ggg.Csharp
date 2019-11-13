@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ConsoleTaskRunner.ConsoleApp
+namespace WebApi_Console_Tests
 {
+    [SuppressMessage("ReSharper", "FunctionRecursiveOnAllPaths")]
     static class Program
     {
         private static readonly ApplicationEnvironment applicationEnvironment = ApplicationEnvironment.Local;
-        // ReSharper disable once FunctionRecursiveOnAllPaths
+
         public static async Task Main()
         {
             Guid guid = Guid.NewGuid();

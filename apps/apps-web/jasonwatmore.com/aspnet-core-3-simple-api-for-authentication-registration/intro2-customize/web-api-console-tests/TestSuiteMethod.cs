@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace ConsoleTaskRunner.ConsoleApp
+namespace WebApi_Console_Tests
 {
     internal class TestSuiteMethod
     {

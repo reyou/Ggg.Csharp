@@ -4,9 +4,9 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace ConsoleTaskRunner.ConsoleApp
+namespace WebApi_Console_Tests
 {
-    internal class TestRunManager
+    internal static class TestRunManager
     {
 
         public static List<TestSuiteMethod> GetTestRunOptions(ApplicationEnvironment applicationEnvironment)
