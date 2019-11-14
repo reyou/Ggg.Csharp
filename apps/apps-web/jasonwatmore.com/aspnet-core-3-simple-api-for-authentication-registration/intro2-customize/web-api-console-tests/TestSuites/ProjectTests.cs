@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.IO;
+using WebApi;
 
 namespace WebApi_Console_Tests.TestSuites
 {
