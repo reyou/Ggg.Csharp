@@ -1,8 +1,12 @@
 ﻿using Azure;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Auth;
+using Microsoft.WindowsAzure.Storage.Blob;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -16,13 +20,44 @@ namespace BlobQuickstartV12
         static async Task Main(string[] args)
         {
             string connectionString = File.ReadAllText("D:\\apikeys\\readendless\\azure-blob-connection-string.txt");
+            string accountName = File.ReadAllText("D:\\apikeys\\readendless\\azure-blob-accountName.txt");
+            string accountKey = File.ReadAllText("D:\\apikeys\\readendless\\azure-blob-accountKey.txt");
             // Create a BlobServiceClient object which will be used to create a container client
-            string containerName = "readendless-books";
-            //  await CreateContainer(connectionString, containerName);
+            string containerName = "readendless-documents";
+            // await CreateContainer(connectionString, containerName);
             // await UploadFile(connectionString, containerName);
             // await ListFiles(connectionString, containerName);
             // await DownloadFile(connectionString, containerName);
             // await DeleteContainer(connectionString, containerName);
+            await GetSharedAccessSignature(accountName, accountKey, containerName);
+        }
+
+        private static async Task GetSharedAccessSignature(string accountName, string accountKey, string containerName)
+        {
+            StorageCredentials storageCredentials = new StorageCredentials(accountName, accountKey);
+            CloudStorageAccount storageAccount = new CloudStorageAccount(storageCredentials, true);
+            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+            CloudBlobContainer container = blobClient.GetContainerReference(containerName);
+            BlobContinuationToken continuationToken = null;
+            List<string> thumbnailUrls = new List<string>();
+            do
+            {
+                BlobResultSegment resultSegment = await container.ListBlobsSegmentedAsync("", true, BlobListingDetails.All, 10, continuationToken, null, null);
+                foreach (IListBlobItem blobItem in resultSegment.Results)
+                {
+                    CloudBlockBlob blob = blobItem as CloudBlockBlob;
+                    SharedAccessBlobPolicy sasConstraints = new SharedAccessBlobPolicy();
+                    sasConstraints.SharedAccessStartTime = DateTimeOffset.UtcNow.AddMinutes(-5);
+                    sasConstraints.SharedAccessExpiryTime = DateTimeOffset.UtcNow.AddHours(24);
+                    sasConstraints.Permissions = SharedAccessBlobPermissions.Read;
+                    string sasBlobToken = blob.GetSharedAccessSignature(sasConstraints);
+                    thumbnailUrls.Add(blob.Uri + sasBlobToken);
+                }
+                continuationToken = resultSegment.ContinuationToken;
+
+            } while (continuationToken != null);
+            Console.WriteLine(JsonConvert.SerializeObject(thumbnailUrls, Formatting.Indented));
+
         }
 
         private static async Task DeleteContainer(string connectionString, string containerName)
