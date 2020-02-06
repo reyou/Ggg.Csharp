@@ -1,0 +1,40 @@
+﻿<div style="border: 2px solid blueviolet; padding: 2px">
+    <h3>DataBindingExample</h3>
+
+    <p>
+        <input @bind="CurrentValue" />
+        <br />
+        <input @bind-value="CurrentValue" @bind-value:event="oninput" />
+        <br />
+        <div><span>Current Value:</span>@CurrentValue</div>
+    </p>
+    <p>
+        <input @bind="MyProperty" />
+
+    </p>
+    <h3>Formatting</h3>
+    <div>
+        <input @bind="StartDate" @bind:format="yyyy-MM-dd" />
+        <input type="date" @bind="StartDate" @bind:format="yyyy-MM-dd">
+    </div>
+    <h3>Component parameters</h3>
+    <div>
+        <p>Year: @Year</p>
+    </div>
+</div>
+@code {
+    private string CurrentValue { get; set; }
+
+    [Parameter]
+    public int MyProperty { get; set; } = 123;
+
+    [Parameter]
+    public DateTime StartDate { get; set; } = new DateTime(2020, 1, 1);
+
+    [Parameter]
+    public int Year { get; set; }
+
+    [Parameter]
+    public EventCallback<int> YearChanged { get; set; }
+
+}
