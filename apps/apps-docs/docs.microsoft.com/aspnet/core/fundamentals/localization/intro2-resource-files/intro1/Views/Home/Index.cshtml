@@ -1,8 +1,58 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
+@using System.Diagnostics
+@using System.Globalization
+@model HomeIndexViewModel
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div>
+        Localized Hello: @Model.HelloMessage
+    </div>
+    <hr />
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                Row
+            </th>
+            <th>
+                Culture Name
+            </th>
+            <th>
+                Display Name
+            </th>
+            <th>
+                Date Time Format
+            </th>
+        </tr>
+        @{
+            int counter = 0;
+
+        }
+        @foreach (CultureInfo item in Model.CultureInfos)
+        {
+            {
+                counter++;
+            }
+            <tr>
+                <td>
+                    @counter
+                </td>
+                <td>
+                    @item.TextInfo.CultureName
+                </td>
+                <td>
+                    @item.DisplayName
+                </td>
+                <td>
+                    <p>
+                        @item.DateTimeFormat.LongDatePattern
+                    </p>
+                    <p>
+                        @item.DateTimeFormat.ShortDatePattern
+                    </p>
+                </td>
+            </tr>
+        }
+    </table>
 </div>
