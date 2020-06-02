@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 
 namespace intro1
@@ -20,7 +22,21 @@ namespace intro1
         {
             services.AddControllersWithViews();
             services.AddHealthChecks()
-                .AddCheck<ExampleHealthCheck>("example_health_check");
+                .AddCheck<ExampleHealthCheck>("example_health_check")
+                .AddCheck("Example", () => HealthCheckResult.Healthy("Example is OK!"), new[] {"example"})
+                .AddTypeActivatedCheck<TestHealthCheckWithArgs>(
+                    "test",
+                    failureStatus: HealthStatus.Degraded,
+                    tags: new[] {"example"},
+                    args: new object[] {5, "string"})
+                .AddCheck<StartupHostedServiceHealthCheck>(
+                    "hosted_service_startup",
+                    failureStatus: HealthStatus.Degraded,
+                    tags: new[] {"ready"});
+
+            services.AddHostedService<StartupHostedService>();
+            services.AddSingleton<StartupHostedServiceHealthCheck>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,7 +65,20 @@ namespace intro1
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-                endpoints.MapHealthChecks("/health");
+                endpoints.MapHealthChecks("/health" , new HealthCheckOptions()
+                {
+                    Predicate = (check) => !check.Tags.Contains("ready"),
+                });
+
+                endpoints.MapHealthChecks("/health/ready", new HealthCheckOptions()
+                {
+                    Predicate = (check) => check.Tags.Contains("ready"),
+                });
+
+                endpoints.MapHealthChecks("/health/live", new HealthCheckOptions()
+                {
+                    Predicate = (_) => false
+                });
             });
         }
     }
