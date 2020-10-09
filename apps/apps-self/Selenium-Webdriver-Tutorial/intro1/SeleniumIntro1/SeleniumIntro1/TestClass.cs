@@ -23,7 +23,7 @@ namespace SeleniumIntro1
             // enter email
             IWebElement email = driver.FindElement(By.Id("sign-in-email"));
             IWebElement signInPassword = driver.FindElement(By.Id("sign-in-password"));
-            email.SendKeys("aytekin.ozdemir@blackbaud.me");
+            email.SendKeys("");
             signInPassword.Click();
 
             // wait for microsoft redirect
