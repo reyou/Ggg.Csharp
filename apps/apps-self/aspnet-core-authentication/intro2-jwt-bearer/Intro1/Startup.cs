@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Intro1
 {
@@ -23,11 +25,45 @@ namespace Intro1
             services.AddControllersWithViews();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).
-                AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options => Configuration.Bind("JwtSettings", options))
-                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+                AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, configureOptions =>
                 {
-                    options.LoginPath = "/home/login";
+                    configureOptions.LoginPath = "/home/login";
+                }).
+                AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+                {
+                    options.Events = new JwtBearerEvents()
+                    {
+                        OnChallenge = OnChallange,
+                        OnTokenValidated = OnTokenValidated,
+                        OnForbidden = OnForbidden,
+                        OnAuthenticationFailed = OnAuthenticationFailed
+                    };
                 });
+        }
+
+        private Task OnTokenValidated(TokenValidatedContext arg)
+        {
+            return Task.CompletedTask;
+        }
+
+        private async Task OnChallange(JwtBearerChallengeContext arg)
+        {
+            ClaimsPrincipal httpContextUser = arg.HttpContext.User;
+            if (!httpContextUser.Identity.IsAuthenticated)
+            {
+                arg.Response.Redirect("/home/login");
+                await arg.Response.CompleteAsync();
+            }
+        }
+
+        private Task OnForbidden(ForbiddenContext arg)
+        {
+            return Task.CompletedTask;
+        }
+
+        private Task OnAuthenticationFailed(AuthenticationFailedContext arg)
+        {
+            return Task.CompletedTask;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
