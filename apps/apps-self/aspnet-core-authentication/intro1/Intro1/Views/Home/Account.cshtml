@@ -1,8 +1,37 @@
-﻿@model object
+﻿@using System.Security.Claims
+@model System.Security.Claims.ClaimsPrincipal
 
 @{
     ViewBag.Title = "title";
     Layout = "_Layout";
 }
 
-<h2>title</h2>
+<h2>Account</h2>
+@{
+    if (Model != null)
+    {
+        <div>
+            <form method="post" asp-action="SignOutPost">
+                <input type="submit" value="Sign Out" />
+            </form>
+        </div>
+        <div>
+            Name: @Model.Identity.Name
+        </div>
+        <div>
+            AuthenticationType: @Model.Identity.AuthenticationType
+        </div>
+        <div>
+            @{
+                IEnumerable<Claim> modelClaims = Model.Claims;
+                foreach (Claim modelClaim in modelClaims)
+                {
+                    <div>
+                        @modelClaim.Type: @modelClaim.Value
+                    </div>
+                }
+            }
+        </div>
+
+    }
+}
