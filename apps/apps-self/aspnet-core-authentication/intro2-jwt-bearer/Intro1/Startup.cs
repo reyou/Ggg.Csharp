@@ -1,11 +1,13 @@
+using Intro1.Requirements;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Security.Claims;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Intro1
@@ -39,6 +41,16 @@ namespace Intro1
                         OnAuthenticationFailed = OnAuthenticationFailed
                     };
                 });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("MinimumAge10", policy =>
+                {
+                    policy.Requirements.Add(new MinimumAgeRequirement(10));
+                });
+            });
+
+            services.AddSingleton<IAuthorizationHandler, MinimumAgeHandler>();
         }
 
         private Task OnTokenValidated(TokenValidatedContext arg)
@@ -46,14 +58,9 @@ namespace Intro1
             return Task.CompletedTask;
         }
 
-        private async Task OnChallange(JwtBearerChallengeContext arg)
+        private Task OnChallange(JwtBearerChallengeContext arg)
         {
-            ClaimsPrincipal httpContextUser = arg.HttpContext.User;
-            if (!httpContextUser.Identity.IsAuthenticated)
-            {
-                arg.Response.Redirect("/home/login");
-                await arg.Response.CompleteAsync();
-            }
+            return Task.CompletedTask;
         }
 
         private Task OnForbidden(ForbiddenContext arg)
@@ -63,6 +70,7 @@ namespace Intro1
 
         private Task OnAuthenticationFailed(AuthenticationFailedContext arg)
         {
+            Debugger.Break();
             return Task.CompletedTask;
         }
 

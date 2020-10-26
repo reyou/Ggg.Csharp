@@ -25,11 +25,17 @@ namespace Intro1.Controllers
             return View();
         }
 
-        [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
+        [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme, Roles = "Administrator")]
         public IActionResult Account()
         {
             ClaimsPrincipal httpContextUser = HttpContext.User;
             return View(httpContextUser);
+        }
+
+        [MinimumAgeAuthorize(10)]
+        public IActionResult AccountWithAge()
+        {
+            return View();
         }
 
         public IActionResult Login()
