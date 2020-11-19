@@ -1,0 +1,23 @@
+﻿@page "/"
+
+<h1>@Title</h1>
+
+
+<button @onclick="UpdateTitle">Update Title</button>
+
+<ChildComponent @bind-ParentsTitle="Title" />
+
+<hr />
+
+<ChildComponent @bind-ParentsTitle="Title" @bind-ParentsTitle:event="ParentsTitleChanged" />
+
+
+
+@code {
+    private string Title { get; set; } = "Hello, World!";
+
+    private void UpdateTitle()
+    {
+        Title = "Hello, Blazor!";
+    }
+}
