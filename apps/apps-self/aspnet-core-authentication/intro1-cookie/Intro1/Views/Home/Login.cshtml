@@ -1,0 +1,33 @@
+﻿@model object
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "_Layout";
+}
+
+<h2>Login</h2>
+<form method="post" asp-action="LoginPost">
+    <table>
+        <tr>
+            <td>
+                User Name:
+            </td>
+            <td>
+                <input name="userName" type="text" value="test" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Password:
+            </td>
+            <td>
+                <input name="password" type="password" value="test" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Login" />
+            </td>
+        </tr>
+    </table>
+</form>
