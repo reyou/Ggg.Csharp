@@ -1,0 +1,20 @@
+﻿@page "/"
+
+
+<h2>Intro 1</h2>
+
+<p>ParentYear: @ParentYear</p>
+
+<ChildComponent @bind-Year="ParentYear" />
+
+<button class="btn btn-primary" @onclick="ChangeTheYear">Change Year to 1986</button>
+
+@code {
+    [Parameter] 
+    public int ParentYear { get; set; } = 1978;
+
+    private void ChangeTheYear()
+    {
+        ParentYear = 1986;
+    }
+}
