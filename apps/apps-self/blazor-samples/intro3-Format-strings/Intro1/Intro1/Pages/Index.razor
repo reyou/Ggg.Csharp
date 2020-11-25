@@ -1,20 +1,25 @@
 ﻿@page "/"
 
 
-<h2>Intro 1</h2>
+<h2>EventCallback</h2>
 
-<p>ParentYear: @ParentYear</p>
+<h1>Parent-child example</h1>
+<ChildComponent Title="Panel Title from Parent" OnClick="@ShowMessage">
+    Content of the child component is supplied by the parent component.
+</ChildComponent>
+<ChildComponent OnClick="@(async () => {
+                                           await Task.Yield(); 
+                                           messageText = "Blaze It!"; })" />
 
-<ChildComponent @bind-Year="ParentYear" />
-
-<button class="btn btn-primary" @onclick="ChangeTheYear">Change Year to 1986</button>
+<p>
+    <b>@messageText</b>
+</p>
 
 @code {
-    [Parameter] 
-    public int ParentYear { get; set; } = 1978;
+    private string messageText;
 
-    private void ChangeTheYear()
+    private void ShowMessage(MouseEventArgs e)
     {
-        ParentYear = 1986;
+        messageText = $"Blaze a new trail with Blazor! ({e.ScreenX}, {e.ScreenY})";
     }
 }
