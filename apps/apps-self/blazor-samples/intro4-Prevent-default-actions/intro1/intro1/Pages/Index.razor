@@ -1,7 +1,7 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+@((MarkupString)myMarkup)
 
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
+@code {
+    private string myMarkup = "<p class='markup'>This is a <em>markup string</em>.</p>";
+}
