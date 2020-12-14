@@ -1,0 +1,12 @@
+﻿@page "/"
+
+@timeTemplate
+@petTemplate(new Pet { Name = "Rex" })
+
+@code {
+
+    private RenderFragment timeTemplate =@<p>The time is @DateTime.Now.</p>;
+private RenderFragment<Pet> petTemplate = (pet) => @<p>Your pet's name is @pet.Name.</p>;
+private class Pet { public string Name { get; set; } }
+
+}
