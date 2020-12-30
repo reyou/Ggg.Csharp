@@ -1,0 +1,31 @@
+﻿@page "/BuiltContent"
+@using Microsoft.AspNetCore.Components.Rendering
+
+<h1>Build a component</h1>
+
+@CustomRender
+
+<button type="button" @onclick="RenderComponent">
+    Create three Pet Details components
+</button>
+
+@code {
+
+    private RenderFragment CustomRender { get; set; }
+
+    private RenderFragment CreateComponent() => (RenderTreeBuilder builder) =>
+    {
+        for (var i = 0; i < 3; i++)
+        {
+            builder.OpenComponent(0, typeof(PetDetailsComponent));            
+            builder.AddAttribute(1, "PetDetailsQuote", "Someone's best friend!");            
+            builder.CloseComponent();
+        }
+    };
+
+    private void RenderComponent()
+    {
+        CustomRender = CreateComponent();
+    }
+
+}
