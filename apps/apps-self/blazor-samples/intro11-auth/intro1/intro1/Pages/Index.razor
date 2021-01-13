@@ -1,0 +1,42 @@
+﻿@page "/"
+
+@using Microsoft.AspNetCore.Components.Authorization
+@using System.Security.Claims
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<button @onclick="@LogUsername">Write user info to console</button>
+<AuthorizeView>
+    <Authorized>
+        <h1>
+            Hello,
+            @if (context.User.Identity != null)
+            {
+                @context.User.Identity.Name;
+            }
+        </h1>
+        <p>You can only see this content if you're authenticated.</p>
+    </Authorized>
+    <NotAuthorized>
+        <h1>Authentication Failure!</h1>        
+        <p>You're not signed in.</p>
+    </NotAuthorized>
+</AuthorizeView>
+@code{
+    [CascadingParameter] 
+    private Task<AuthenticationState> AuthenticationStateTask { get; set; }
+
+    private async Task LogUsername()
+    {
+        AuthenticationState authState = await AuthenticationStateTask;
+        ClaimsPrincipal user = authState.User;
+
+        if (user.Identity != null && user.Identity.IsAuthenticated)
+        {
+            Console.WriteLine($"{user.Identity.Name} is authenticated.");
+        }
+        else
+        {
+            Console.WriteLine("The user is NOT authenticated.");
+        }
+    }
+}
