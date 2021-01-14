@@ -1,0 +1,31 @@
+﻿@page "/account"
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<h3>Account</h3>
+
+@attribute [Authorize]
+You can only see this if you're <b>signed in (authenticated)</b>.
+
+<AuthorizeView>
+    <Authorized>
+        <h3 style="margin-top: 20px">
+            Hello,
+            @if (context.User.Identity != null)
+            {
+                @context.User.Identity.Name;
+            }
+        </h3>
+        <p>You can only see this content if you're authenticated.</p>
+    </Authorized>
+    <NotAuthorized>
+        <h1>Authentication Failure!</h1>
+        <p>You're not signed in.</p>
+    </NotAuthorized>
+</AuthorizeView>
+
+
+@code {
+  
+}
