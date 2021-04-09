@@ -48,6 +48,7 @@ namespace WebApplication1
             {
                 endpoints.MapRazorPages();
                 endpoints.MapHub<ChatHub>("/chatHub");
+                endpoints.MapHub<StronglyTypedChatHub>("/stChatHub");
             });
         }
     }
